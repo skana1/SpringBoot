@@ -9,7 +9,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "students")
 public class Student {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -22,7 +21,6 @@ public class Student {
 
     @Column(name = "phone_no")
     private long phoneNo;
-
 
     public Student() {
         super();
