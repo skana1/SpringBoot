@@ -2,75 +2,80 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Exam;
 import com.example.demo.entity.Student;
+import com.example.demo.repository.ExamRepository;
 import com.example.demo.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 @Controller
-@RequestMapping("/students/")
-public class StudentController {
+@RequestMapping("/exam/")
+public class ExamController {
 
     @Autowired
-    private StudentRepository studentRepository;
+    private ExamRepository examRepository;
 
 
     @GetMapping("showForm")
-    public String showStudentForm(Student student) {
-        return "add-student";
+    public String showExamForm(Exam exam) {
+        return "add-exam";
     }
 
     @GetMapping("list")
-    public String students(Model model) {
-        model.addAttribute("students", this.studentRepository.findAll());
+    public String exam(Model model) {
+        model.addAttribute("exam", this.examRepository.findAll());
         return "index";
     }
 
     @PostMapping("add")
-    public String addStudent(@Validated Student student, BindingResult result, Model model) {
+    public String addExam(@Validated Exam exam, BindingResult result, Model model) {
         if(result.hasErrors()) {
-            return "add-student";
+            return "add-exam";
         }
 
-        this.studentRepository.save(student);
+        this.examRepository.save(exam);
         return "redirect:list";
     }
 
 
     @GetMapping("edit/{id}")
     public String showUpdateForm(@PathVariable ("id") long id, Model model) {
-        Student student = this.studentRepository.findById(id)
+        Exam exam = (Exam) this.examRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid student id : " + id));
 
-        model.addAttribute("student", student);
+        model.addAttribute("exam", exam);
         return "update-student";
     }
 
     @PostMapping("update/{id}")
-    public String updateStudent(@PathVariable("id") long id, @Validated Student student, BindingResult result, Model model) {
+    public String updateStudent(@PathVariable("id") long id, @Validated Exam exam, BindingResult result, Model model) {
         if(result.hasErrors()) {
-            student.setId(id);
+            exam.setId(id);
             return "update-student";
         }
 
         // update student
-        studentRepository.save(student);
+        examRepository.save(exam);
 
         // get all students ( with update)
-        model.addAttribute("students", this.studentRepository.findAll());
+        model.addAttribute("students", this.examRepository.findAll());
         return "index";
     }
 
     @GetMapping("delete/{id}")
     public String deleteStudent(@PathVariable ("id") long id, Model model) {
 
-        Student student = this.studentRepository.findById(id)
+        Exam exam = (Exam) this.examRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid student id : " + id));
 
-        this.studentRepository.delete(student);
-        model.addAttribute("students", this.studentRepository.findAll());
+        this.examRepository.delete(exam);
+        model.addAttribute("exam", this.examRepository.findAll());
         return "index";
 
     }

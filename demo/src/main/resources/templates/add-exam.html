@@ -17,23 +17,14 @@
     <div class="card">
         <div class="card-body">
             <div class="col-md-10">
-                <form action="#" th:action="@{/students/add}" th:object="${student}" method="post">
+                <form action="#" th:action="@{/exam/add}" th:object="${exam}" method="post">
                     <div class="row">
                         <div class="form-group col-md-8">
-                            <label for="name" class="col-form-label">Name</label> <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Name"> <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+                            <label for="course" class="col-form-label">Course</label> <input type="text" th:field="*{course}" class="form-control" id="course" placeholder="Course"> <span th:if="${#fields.hasErrors('course')}" th:errors="*{course}" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-8">
-                            <label for="email" class="col-form-label">Email</label> <input type="text" th:field="*{email}" class="form-control" id="email" placeholder="Email"> <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+                            <label for="marks" class="col-form-label">Marks</label> <input type="text" th:field="*{marks}" class="form-control" id="marks" placeholder="Marks"> <span th:if="${#fields.hasErrors('marks')}" th:errors="*{marks}" class="text-danger"></span>
                         </div>
-
-                        <div class="form-group col-md-8">
-                            <label for="phoneNo" class="col-form-label">Phone No</label> <input type="text" th:field="*{phoneNo}" class="form-control" id="phoneNo" placeholder="PhoneNo"> <span th:if="${#fields.hasErrors('phoneNo')}" th:errors="*{phoneNo}" class="text-danger"></span>
-                        </div>
-
-                        <div class="col-md-6">
-                            <input type="submit" class="btn btn-primary button-7"  value="Add Student">
-                        </div>
-
                         <div class="form-group col-md-8"></div>
 
                     </div>
@@ -42,7 +33,6 @@
         </div>
     </div>
 </div>
-
 </body>
 
 </html>
